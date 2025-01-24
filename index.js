@@ -26,4 +26,7 @@ async function test() {
     console.log("result",result);
 }
 
-test().catch(console.error)
+test().catch(e => {
+    console.error(e);
+    process.exit(1);
+})
