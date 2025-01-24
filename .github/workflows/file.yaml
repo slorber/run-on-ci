@@ -1,17 +1,19 @@
-name: CI
+name: Run Node index.js file
 
 on:
-  workflow_dispatch:
-    inputs:
-      message:
-        required: true
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     name: "Run on node-${{ matrix.node_version }}, ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
 
-    timeout-minutes: 30
+    timeout-minutes: 10
 
     strategy:
       matrix:
@@ -34,5 +36,8 @@ jobs:
           node-version: ${{ matrix.node_version }}
           registry-url: "https://registry.npmjs.org"
 
-      - name: Run script
-        run: node --eval "${{ github.event.inputs.message }}"
+      - name: npm install
+        run: npm install
+
+      - name: Run Node
+        run: node index.js
