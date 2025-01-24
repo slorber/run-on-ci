@@ -8,7 +8,7 @@ async function test() {
     const Tinypool = await import('tinypool').then((m) => m.default);
 
     const workerURL = pathToFileURL(
-        path.resolve(__dirname, 'worker.js'),
+        path.resolve(__dirname, 'worker.mjs'),
     );
     console.log('workerURL', workerURL);
 
