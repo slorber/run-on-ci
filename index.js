@@ -14,12 +14,6 @@ async function test() {
 
     const pool = new Tinypool({
         filename: workerURL.href,
-        minThreads: numberOfThreads,
-        maxThreads: numberOfThreads,
-        concurrentTasksPerWorker: 1,
-        runtime: 'worker_threads',
-        isolateWorkers: false,
-        workerData: {},
     });
 
     const result = await pool.run({a: 1,b: 2})
