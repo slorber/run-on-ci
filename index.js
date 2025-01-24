@@ -20,7 +20,7 @@ async function testWorker({esm}) {
 
 async function testImport({esm}) {
     const workerFile = esm ? 'worker.mjs' : 'worker.js';
-    const filename = path.resolve(__dirname, workerFile);
+    const filename = pathToFileURL(path.resolve(__dirname, workerFile)).href;
     console.log('Import filename', {esm,filename});
     const module = await import(filename)
     console.log("Import success",{esm,module})
