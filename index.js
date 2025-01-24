@@ -2,22 +2,27 @@
 const path = require("path")
 const {pathToFileURL} = require("url")
 
-async function test() {
-    const numberOfThreads = 4
+async function testWorker({esm}) {
 
     const Tinypool = await import('tinypool').then((m) => m.default);
 
-    const workerURL = pathToFileURL(
-        path.resolve(__dirname, 'worker.mjs'),
-    );
-    console.log('workerURL', workerURL);
+    const workerFile = esm ? 'worker.mjs' : 'worker.js';
 
-    const pool = new Tinypool({
-        filename: workerURL.href,
-    });
+    const filename = path.resolve(__dirname, workerFile);
+    console.log('Worker filename', {esm,filename});
+
+    const pool = new Tinypool({filename});
 
     const result = await pool.run({a: 1,b: 2})
-    console.log("result",result);
+
+    console.log("Worker success result",{esm,result});
+}
+
+async function test() {
+    await Promise.all([
+        testWorker({esm: true}),
+        testWorker({esm: false})
+    ])
 }
 
 test().catch(e => {

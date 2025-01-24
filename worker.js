@@ -1,9 +1,4 @@
 
-
-
-async function worker({a, b}) {
-    console.log("worker task",{a,b})
+exports.default = async function worker({a, b}) {
     return a+b;
 }
-
-exports.default = worker;
