@@ -8,10 +8,9 @@ async function testWorker({esm}) {
 
     const workerFile = esm ? 'worker.mjs' : 'worker.js';
 
-    const fileURL = pathToFileURL(path.resolve(__dirname, workerFile))
-    console.log('Worker fileURL', {esm,fileURL});
-
-    const filename = fileURL.pathname;
+    // const filename = pathToFileURL(path.resolve(__dirname, workerFile)).pathname;
+    const filename = path.resolve(__dirname, workerFile);
+    console.log('Worker filename', {esm,filename});
 
     const pool = new Tinypool({filename});
 
